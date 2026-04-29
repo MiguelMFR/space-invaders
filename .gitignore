@@ -1,0 +1,14 @@
+# Ignore PPlay library folder
+PPlay/
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+env/
+
+# Editor directories
+.vscode/
+.DS_Store
