@@ -12,3 +12,6 @@ env/
 # Editor directories
 .vscode/
 .DS_Store
+
+# Ignore ranking file
+rank.txt
