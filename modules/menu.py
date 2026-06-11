@@ -1,33 +1,26 @@
 import sprites as sprite
 import config
+import sound
+import classes.Telas.TelaMenu as TelaMenu
+
 
 
 def menu():
-    while True:
-        
+    sound.som_jogo.stop()
+    sound.som_menu.play()
+    config.mouse_pressed_anterior = config.mouse.is_button_pressed(1)
+    tela = TelaMenu.TelaMenu()
 
-        config.window.set_background_color((20,20,20))
-        sprite.background_menu.draw()
-        sprite.botao_jogar.draw()
-        sprite.botao_dificuldade.draw()
-        sprite.botao_rank.draw()
-        sprite.botao_sair.draw()
+    tela.atualizar()
 
-        if config.mouse.is_over_object(sprite.botao_sair) and config.mouse.is_button_pressed(1):
-            config.running = False
-            break
+    tela.desenhar([
+        sprite.background_menu,
+        sprite.botao_jogar,
+        sprite.botao_dificuldade,
+        sprite.botao_rank,
+        sprite.botao_sair,
+        sprite.volume_on if config.volume == 1 else sprite.volume_off
+    ])
 
-        if config.mouse.is_over_object(sprite.botao_dificuldade) and config.mouse.is_button_pressed(1):
-            config.control = config.dificuldade
-            return 0
-
-        if config.mouse.is_over_object(sprite.botao_jogar) and config.mouse.is_button_pressed(1):
-            config.control = config.jogo
-            return 0
-
-
-        if config.mouse.is_over_object(sprite.botao_rank) and config.mouse.is_button_pressed(1):
-            config.control = config.ranking
-            return 0
-
-        config.window.update()
+    tela.verificar_volume()
+    tela.verificar_click_botao()

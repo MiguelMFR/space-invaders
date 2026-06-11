@@ -1,10 +1,14 @@
 import config
+import classes.Telas.TelaRanking as TelaRanking
 
 def ranking():
-    
+    tela_ranking = TelaRanking.TelaRanking()
+
     while True:
-        config.window.set_background_color((20, 20, 20))
-        config.window.update()
+        tela_ranking.desenhar()
+
+        tela_ranking.atualizar()
+
 
         if config.keyboard.key_pressed("ESC"):
             config.control = config.menu

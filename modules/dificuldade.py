@@ -1,30 +1,16 @@
 import sprites as sprite
 import config
+import classes.Telas.TelaDificuldade as TelaDificuldade
 
 def dificuldade():
+    tela = TelaDificuldade.TelaDificuldade()
 
-    while True:
-        config.window.set_background_color((20, 20, 20))
-        sprite.background_dif.draw()
-        sprite.botao_dificuldade_facil.draw()    
-        sprite.botao_dificuldade_medio.draw()
-        sprite.botao_dificuldade_hard.draw()    
-
-        config.window.update()
-
-
-        if config.mouse.is_over_object(sprite.botao_dificuldade_facil) and config.mouse.is_button_pressed(1):
-            config.control = config.jogo
-            return 0
-
-        if config.mouse.is_over_object(sprite.botao_dificuldade_medio) and config.mouse.is_button_pressed(1):
-            config.control = config.jogo
-            return 0
-        
-        if config.mouse.is_over_object(sprite.botao_dificuldade_hard) and config.mouse.is_button_pressed(1):
-            config.control = config.jogo
-            return 0
-
-        if config.keyboard.key_pressed("ESC"):
-            config.control = config.menu
-            return 0
+    tela.atualizar()
+    tela.desenhar([
+        sprite.background_dif, 
+        sprite.botao_dificuldade_facil, 
+        sprite.botao_dificuldade_medio, 
+        sprite.botao_dificuldade_hard
+    ])
+    tela.verificar_volume() 
+    tela.verificar_click_botao()
