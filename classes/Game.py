@@ -94,14 +94,15 @@ class Game:
             self.monstros.balas.clear()
             return
 
+        if self.nave.imunidade:
+            return
+        
         for bala in self.monstros.balas[:]:
 
             if bala.colide(self.nave.sprite):
-
-                metade_nave = self.nave.sprite.y + self.nave.sprite.height / 4
-
-                if bala.sprite.y >= metade_nave:
-                    self.nave.vida -= 1
-                    config.vida -= 1
-                    self.monstros.balas.remove(bala)
-                    print("Vida restante:", self.nave.vida)
+                self.nave.imunidade = True
+                self.nave.posicionar()
+                self.nave.vida -= 1
+                config.vida -= 1
+                self.monstros.balas.remove(bala)
+                print("Vida restante:", self.nave.vida)

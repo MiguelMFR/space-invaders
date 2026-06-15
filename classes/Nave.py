@@ -15,12 +15,30 @@ class Nave:
         self.tempo_tiro = 0
         self.intervalo_tiro = config.tiro_nave[config.modo_dificuldade]
         self.velocidade = config.velocidade_nave[config.modo_dificuldade]
+        self.imunidade = False
+        self.tempo_imunidade = 0
+
+    def posicionar(self):
+        self.sprite.set_position(
+            config.window.width/2 - self.sprite.width/2,
+            config.window.height - self.sprite.height
+        )
 
     def atualizar(self, dt):
         self.movimento()
         self.atirar(dt)
         self.atualizar_balas(dt)
-        self.sprite.draw()
+        if self.imunidade:
+            self.tempo_imunidade += dt
+
+            if int(self.tempo_imunidade * 10) % 2 == 0:
+                self.sprite.draw()
+
+            if self.tempo_imunidade > 3:
+                self.imunidade = False
+                self.tempo_imunidade = 0
+        else:
+            self.sprite.draw()
 
     def movimento(self):
         if config.keyboard.key_pressed("LEFT") and self.sprite.x > 0:
