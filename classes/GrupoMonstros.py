@@ -41,17 +41,28 @@ class GrupoMonstros:
         inverter = False
 
         for monstro in self.monstros:
-            monstro.atualizar(self.velocidade * dt )
+            monstro.atualizar(self.velocidade * dt)
 
-            if monstro.sprite.x <= 0 or monstro.sprite.x + monstro.sprite.width >= config.window.width:
+            if (monstro.sprite.x <= 0 or
+                monstro.sprite.x + monstro.sprite.width >= config.window.width):
                 inverter = True
 
         if inverter:
-            monstro.sprite.x = max(0, min(monstro.sprite.x, config.window.width - monstro.sprite.width))
             self.velocidade *= -1
 
             for monstro in self.monstros:
-                monstro.sprite.move_y(monstro.sprite.height/2)
+
+                # força o monstro para dentro da tela
+                if monstro.sprite.x < 0:
+                    monstro.sprite.x = 0
+
+                if monstro.sprite.x + monstro.sprite.width > config.window.width:
+                    monstro.sprite.x = (
+                        config.window.width - monstro.sprite.width
+                    )
+
+                # desce uma linha
+                monstro.sprite.move_y(monstro.sprite.height / 2)
 
     def atirar(self, dt):
         self.cronometro += dt
